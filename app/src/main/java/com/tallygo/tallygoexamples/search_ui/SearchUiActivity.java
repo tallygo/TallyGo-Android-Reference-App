@@ -33,6 +33,12 @@ import java.util.Map;
 //  Created by haydenchristensen on 5/7/18
 //  Copyright © 2017 TallyGo. All rights reserved.
 //
+
+/**
+ * Note that internally {@link TGMapSearchSupportFragment} requires the parent activity or fragment
+ * to implement {@link TGMapHolder}, so here we implement it and delegate the methods to the
+ * base map fragment that we create
+ */
 public class SearchUiActivity extends AppCompatActivity implements TGMapHolder {
 
     private TGMapViewModel mapViewModel;

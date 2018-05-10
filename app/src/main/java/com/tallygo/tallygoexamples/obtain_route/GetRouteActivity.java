@@ -25,7 +25,7 @@ import java.util.List;
 //  Created by haydenchristensen on 5/2/18
 //  Copyright © 2017 TallyGo. All rights reserved.
 //
-public class ObtainRouteActivity extends AppCompatActivity {
+public class GetRouteActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

@@ -17,12 +17,29 @@
             </intent-filter>
         </activity>
 
+        <!--Example Activities-->
+        <activity android:name=".annotate_map.AnnotateMapMarkerActivity"/>
+
+        <activity android:name=".display_driver_report.DisplayDriverReportActivity"/>
+
+        <activity android:name=".driving_simulator.DrivingSimulatorActivity"/>
+
+        <activity android:name=".find_api.LatLonFromStreetAddressActivity"/>
+        <activity android:name=".find_api.SearchForLocationActivity"/>
+
+        <activity android:name=".obtain_route.GetRouteActivity"/>
+
+        <activity android:name=".overview_ui.OverviewUiActivity"/>
+
         <activity android:name=".report_server.ReportCurrentLocServerActivity"/>
         <activity android:name=".report_server.ReportEtaServerActivity"/>
         <activity android:name=".report_server.ReportRouteServerActivity"/>
 
-        <activity android:name=".display_driver_report.DisplayDriverReportActivity"/>
+        <activity android:name=".search_ui.SearchUiActivity"/>
 
+        <activity android:name=".turn_list_ui.TurnListUiActivity"/>
+
+        <!--End Examples-->
 
         <meta-data android:name="tallygo.ACCESS_TOKEN" android:value="@string/tallygo_access_token" />
 

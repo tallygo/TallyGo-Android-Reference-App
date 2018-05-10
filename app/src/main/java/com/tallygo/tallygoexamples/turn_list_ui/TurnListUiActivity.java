@@ -25,7 +25,6 @@ import java.util.List;
 //
 public class TurnListUiActivity extends AppCompatActivity {
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,9 +39,9 @@ public class TurnListUiActivity extends AppCompatActivity {
                 startTurnList();
             }
             @Override
-            public void onFailure(Exception e) { }
+            public void onFailure(Exception e) {}
             @Override
-            public void onRetryInit(long l) { }
+            public void onRetryInit(long l) {}
         });
     }
 
