@@ -31,7 +31,7 @@ public class MainAdapter extends ArrayAdapter<ExampleType> {
 
         ExampleType exampleType = getItem(position);
         final TextView exampleTypeTextView = v.findViewById(R.id.tv_example_type);
-        exampleTypeTextView.setText(exampleType.toString());
+        exampleTypeTextView.setText(exampleType.getLabel());
 
         return v;
     }

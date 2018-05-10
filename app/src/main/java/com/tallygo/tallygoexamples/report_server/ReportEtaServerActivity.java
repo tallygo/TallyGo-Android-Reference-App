@@ -79,7 +79,7 @@ public class ReportEtaServerActivity extends AppCompatActivity {
     }
 
     private static final long DURATION_BETWEEN_REPORTS = 60000L; //ms
-    private static final String REPORT_URL = "http://192.168.86.69:3200/drivers/eta";
+    private static final String REPORT_URL = "http://localhost:3200/drivers/eta";
 
     private long lastReportedTime;
 

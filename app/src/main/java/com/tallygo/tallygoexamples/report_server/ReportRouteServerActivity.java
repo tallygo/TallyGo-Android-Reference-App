@@ -80,7 +80,7 @@ public class ReportRouteServerActivity extends AppCompatActivity {
         TGLauncher.launchSimulatedNavigation(this, 2);
     }
 
-    private static final String REPORT_URL = "http://192.168.86.69:3200/drivers/route_segment";
+    private static final String REPORT_URL = "http://localhost:3200/drivers/route_segment";
 
     private TGRoute lastRoute;
 

@@ -79,7 +79,7 @@ public class ReportCurrentLocServerActivity extends AppCompatActivity {
 
     private static final double DISTANCE_BETWEEN_REPORTS = 100d; //meters
     private static final long DURATION_BETWEEN_REPORTS = 60000L; //ms
-    private static final String REPORT_URL = "http://192.168.86.69:3200/drivers/current_location";
+    private static final String REPORT_URL = "http://localhost:3200/drivers/current_location";
 
     private LatLng lastReportedPoint;
     private long lastReportedTime;

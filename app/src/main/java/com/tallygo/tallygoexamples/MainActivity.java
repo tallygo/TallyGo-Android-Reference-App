@@ -6,11 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 
-import com.tallygo.tallygoexamples.report_server.ReportCurrentLocServerActivity;
-import com.tallygo.tallygoexamples.report_server.ReportEtaServerActivity;
-import com.tallygo.tallygoexamples.report_server.ReportRouteServerActivity;
-import com.tallygo.tallygoexamples.display_driver_report.DisplayDriverReportActivity;
-
 import timber.log.Timber;
 
 public class MainActivity extends ListActivity {
@@ -30,23 +25,7 @@ public class MainActivity extends ListActivity {
     }
 
     private void startExample(ExampleType exampleType) {
-        Intent intent;
-        switch (exampleType) {
-            case REPORT_CURRENT_LOC_TO_SERVER:
-                intent = new Intent(this, ReportCurrentLocServerActivity.class);
-                break;
-            case REPORT_ETA_SERVER:
-                intent = new Intent(this, ReportEtaServerActivity.class);
-                break;
-            case REPORT_ROUTE_SERVER:
-                intent = new Intent(this, ReportRouteServerActivity.class);
-                break;
-            case DISPLAY_DRIVER_REPORT:
-                intent = new Intent(this, DisplayDriverReportActivity.class);
-                break;
-            default:
-                throw new IllegalArgumentException("Unknown example type");
-        }
+        Intent intent = new Intent(this, exampleType.getActivityClass());
         startActivity(intent);
     }
 
