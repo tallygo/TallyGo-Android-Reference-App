@@ -33,7 +33,7 @@ public enum ExampleType {
     TURN_LIST_UI(SearchUiActivity.class, "Turn List UI"),
 
     LAT_LON_FROM_STREET_ADDRESS(LatLonFromStreetAddressActivity.class, "Get lat/lon from street address"),
-    SEARCH_FOR_LOCATION(SearchForLocationActivity.class, "Get detailed location information..."),
+    SEARCH_FOR_LOCATION(SearchForLocationActivity.class, "Get detailed location information"),
     GET_ROUTE(GetRouteActivity.class, "Get turn-by-turn navigation route data"),
 
     REPORT_CURRENT_LOC_TO_SERVER(ReportCurrentLocServerActivity.class, "Report driver's location to server"),
