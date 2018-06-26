@@ -7,6 +7,8 @@ import com.tallygo.tallygoexamples.display_driver_report.DisplayDriverReportActi
 import com.tallygo.tallygoexamples.driving_simulator.DrivingSimulatorActivity;
 import com.tallygo.tallygoexamples.find_api.LatLonFromStreetAddressActivity;
 import com.tallygo.tallygoexamples.find_api.SearchForLocationActivity;
+import com.tallygo.tallygoexamples.get_navigation.GetNavActivity;
+import com.tallygo.tallygoexamples.get_navigation.GetNavPreviewActivity;
 import com.tallygo.tallygoexamples.obtain_route.GetRouteActivity;
 import com.tallygo.tallygoexamples.overview_ui.OverviewUiActivity;
 import com.tallygo.tallygoexamples.report_server.ReportCurrentLocServerActivity;
@@ -21,19 +23,24 @@ import com.tallygo.tallygoexamples.search_ui.SearchUiActivity;
 //  Copyright © 2017 TallyGo. All rights reserved.
 //
 public enum ExampleType {
-    ANNOTATE_MAP_MARKER(AnnotateMapMarkerActivity.class, "Annotate the map with a marker"),
-    DISPLAY_DRIVER_REPORT(DisplayDriverReportActivity.class, "Display driver report"),
     DRIVING_SIMULATOR(DrivingSimulatorActivity.class, "Use the driving simulator"),
-    LAT_LON_FROM_STREET_ADDRESS(LatLonFromStreetAddressActivity.class, "Get lat/lon from street address"),
-    SEARCH_FOR_LOCATION(SearchForLocationActivity.class, "Search for location"),
-    GET_ROUTE(GetRouteActivity.class, "Get a route"),
-    OVERVIEW_UI(OverviewUiActivity.class, "Show a route overview"),
-    REPORT_CURRENT_LOC_TO_SERVER(ReportCurrentLocServerActivity.class, "Report location to server"),
-    REPORT_ETA_SERVER(ReportEtaServerActivity.class, "Report ETA to server"),
-    REPORT_ROUTE_SERVER(ReportRouteServerActivity.class, "Report route to server"),
-    SEARCH_UI(SearchUiActivity.class, "Display search UI on a map"),
-    TURN_LIST_UI(SearchUiActivity.class, "Display turn list UI"),
+    GET_NAV_WITH_PREVIEW(GetNavPreviewActivity.class, "Get Navigation (with Preview)"),
+    GET_NAV_WITHOUT_PREVIEW(GetNavActivity.class, "Get Navigation (without Preview)"),
 
+    ANNOTATE_MAP_MARKER(AnnotateMapMarkerActivity.class, "Display markers on TGMapView"),
+    SEARCH_UI(SearchUiActivity.class, "Search UI"),
+    OVERVIEW_UI(OverviewUiActivity.class, "Overview UI"),
+    TURN_LIST_UI(SearchUiActivity.class, "Turn List UI"),
+
+    LAT_LON_FROM_STREET_ADDRESS(LatLonFromStreetAddressActivity.class, "Get lat/lon from street address"),
+    SEARCH_FOR_LOCATION(SearchForLocationActivity.class, "Get detailed location information..."),
+    GET_ROUTE(GetRouteActivity.class, "Get turn-by-turn navigation route data"),
+
+    REPORT_CURRENT_LOC_TO_SERVER(ReportCurrentLocServerActivity.class, "Report driver's location to server"),
+    REPORT_ETA_SERVER(ReportEtaServerActivity.class, "Report driver's ETA to server"),
+    REPORT_ROUTE_SERVER(ReportRouteServerActivity.class, "Report driver's route segment to server"),
+
+    DISPLAY_DRIVER_REPORT(DisplayDriverReportActivity.class, "Display driver report"),
     ;
 
     private final Class<? extends AppCompatActivity> activityClass;

@@ -18,6 +18,9 @@
         </activity>
 
         <!--Example Activities-->
+        <activity android:name=".get_navigation.GetNavActivity"/>
+        <activity android:name=".get_navigation.GetNavPreviewActivity"/>
+
         <activity android:name=".annotate_map.AnnotateMapMarkerActivity"/>
 
         <activity android:name=".display_driver_report.DisplayDriverReportActivity"/>
