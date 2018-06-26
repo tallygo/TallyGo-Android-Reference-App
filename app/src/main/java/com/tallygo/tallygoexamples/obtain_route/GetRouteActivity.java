@@ -2,12 +2,14 @@ package com.tallygo.tallygoexamples.obtain_route;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import com.mapbox.mapboxsdk.geometry.LatLng;
+import com.tallygo.tallygoandroid.interfaces.TGLocationListener;
 import com.tallygo.tallygoandroid.sdk.TGNavigationEndpoint;
 import com.tallygo.tallygoandroid.sdk.TallyGo;
 import com.tallygo.tallygoandroid.sdk.navigation.TGRouteRequest;
@@ -31,22 +33,32 @@ public class GetRouteActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        obtainRoute();
+        obtainLocation();
     }
 
-    private void obtainRoute() {
-        // You can create any two points and see different routes
+    private void obtainLocation() {
         if (ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             return;
         }
 
-        LatLng currentLocation = TGUtils.getRealCurrentCoordinate(getBaseContext());
+        TGUtils.getRealCurrentLocation(getBaseContext(), new TGLocationListener() {
+            @Override
+            public void onLocationUpdated(@Nullable Location currentLocation) {
+                obtainRoute(currentLocation);
+            }
+        });
+    }
+
+    private void obtainRoute(Location currentLocation) {
+        // You can create any two points and see different routes
+
+        LatLng locationCoordinate = TGUtils.locToCoor(currentLocation);
         LatLng destinationCoordinate = new LatLng(34.101558d, -118.340944d); // Grauman's Chinese Theatre
 
         List<LatLng> waypoints = new ArrayList<>();
-        waypoints.add(currentLocation);
+        waypoints.add(locationCoordinate);
         waypoints.add(destinationCoordinate);
 
         // Create the request

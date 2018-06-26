@@ -16,18 +16,21 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
 }
 
 repositories {
     google()
-    mavenLocal()
     maven {
         url "https://tallygo.bintray.com/TallyGoAndroid"
     }
 }
 
 dependencies {
-    implementation('com.tallygo:tallygo-android:2.0.6@aar') {
-        transitive = true
-    }
+    implementation 'com.tallygo:tallygo-android:2.0.12'
 }

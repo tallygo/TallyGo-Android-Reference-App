@@ -52,7 +52,7 @@ public class AnnotateMapMarkerActivity extends AppCompatActivity {
     private void annotateMap() {
         TGMap tgMap = getTGMap();
         if (tgMap == null) {
-            TGToastHelper.showShort(this, "Map not yet available");
+            TGToastHelper.showShort(this, "Map not yet ready");
             return;
         }
 

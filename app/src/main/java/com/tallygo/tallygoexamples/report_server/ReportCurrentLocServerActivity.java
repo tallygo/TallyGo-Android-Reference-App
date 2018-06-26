@@ -9,6 +9,7 @@ package com.tallygo.tallygoexamples.report_server;
 
 import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
@@ -38,7 +39,7 @@ public class ReportCurrentLocServerActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        TGNavigationRepository.NavigationListener listener = new TGNavigationRepository.NavigationListener() {
+        final TGNavigationRepository.NavigationListener listener = new TGNavigationRepository.NavigationListener() {
             @Override
             public void onNavigationStateChange(@Nullable TGNavigationState tgNavigationState) {}
 
@@ -69,8 +70,13 @@ public class ReportCurrentLocServerActivity extends AppCompatActivity {
             public void onTurnPassed() {}
         };
 
-        TGNavigationRepository.getInstance().getDefaultNavigationAdapter(getApplication())
-                .setNavigationListener(listener);
+        TGNavigationRepository.getDefaultNavigationAdapter(getApplication(),
+                new TGNavigationRepository.AdapterCallback() {
+                    @Override
+                    public void onReady(@NonNull TGNavigationRepository.Adapter adapter) {
+                        adapter.setNavigationListener(listener);
+                    }
+                });
 
         //launch simulated navigation
         TGLauncher.launchSimulatedNavigation(this, 2);
