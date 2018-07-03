@@ -85,7 +85,7 @@ public class DisplayDriverMotionActivity extends AppCompatActivity {
 
     private void startWebSocket() {
         OkHttpClient socketClient = new OkHttpClient();
-        Request request = new Request.Builder().url("ws://192.168.86.69:3200/").build();
+        Request request = new Request.Builder().url("ws://localhost:3200/").build();
         websocket = socketClient.newWebSocket(request, socketListener);
         socketClient.dispatcher().executorService().shutdown();
     }

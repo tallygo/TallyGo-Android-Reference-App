@@ -79,7 +79,7 @@ public class ReportDriverMotionActivity extends AppCompatActivity {
     }
 
 
-    private static final String URL = "http://192.168.86.69:3200/drivers/motion";
+    private static final String URL = "http://localhost:3200/drivers/motion";
 
     private static final int COLLECTION_INTERVAL = 30 * 1000; //millis
     private Timer collectionTimer;
