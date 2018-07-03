@@ -42,6 +42,9 @@
 
         <activity android:name=".turn_list_ui.TurnListUiActivity"/>
 
+        <activity android:name=".driver_motion.ReportDriverMotionActivity"/>
+        <activity android:name=".driver_motion.DisplayDriverMotionActivity"/>
+
         <!--End Examples-->
 
         <meta-data android:name="tallygo.ACCESS_TOKEN" android:value="@string/tallygo_access_token" />

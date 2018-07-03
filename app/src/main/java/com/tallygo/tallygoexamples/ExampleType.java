@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.tallygo.tallygoexamples.annotate_map.AnnotateMapMarkerActivity;
 import com.tallygo.tallygoexamples.display_driver_report.DisplayDriverReportActivity;
+import com.tallygo.tallygoexamples.driver_motion.DisplayDriverMotionActivity;
+import com.tallygo.tallygoexamples.driver_motion.ReportDriverMotionActivity;
 import com.tallygo.tallygoexamples.driving_simulator.DrivingSimulatorActivity;
 import com.tallygo.tallygoexamples.find_api.LatLonFromStreetAddressActivity;
 import com.tallygo.tallygoexamples.find_api.SearchForLocationActivity;
@@ -41,6 +43,9 @@ public enum ExampleType {
     REPORT_ROUTE_SERVER(ReportRouteServerActivity.class, "Report driver's route segment to server"),
 
     DISPLAY_DRIVER_REPORT(DisplayDriverReportActivity.class, "Display driver report"),
+
+    REPORT_DRIVER_MOTION(ReportDriverMotionActivity.class, "Report driver motion"),
+    DISPLAY_DRIVER_MOTION(DisplayDriverMotionActivity.class, "Display driver motion"),
     ;
 
     private final Class<? extends AppCompatActivity> activityClass;

@@ -15,8 +15,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.tallygo.tallygoandroid.endpoint.navigation.TGArrivalInfo;
@@ -57,7 +55,7 @@ public class ReportEtaServerActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onRouteUpdated(TGRoute tgRoute) {}
+            public void onRouteUpdated(@NonNull TGRoute tgRoute) {}
 
             @Override
             public void onRouteLocationUpdated(Location location) {}
@@ -73,12 +71,7 @@ public class ReportEtaServerActivity extends AppCompatActivity {
         };
 
         TGNavigationRepository.getDefaultNavigationAdapter(getApplication(),
-                new TGNavigationRepository.AdapterCallback() {
-                    @Override
-                    public void onReady(@NonNull TGNavigationRepository.Adapter adapter) {
-                        adapter.setNavigationListener(listener);
-                    }
-                });
+                adapter -> adapter.setNavigationListener(listener));
 
         //launch simulated navigation
         TGLauncher.launchSimulatedNavigation(this, 2);
@@ -99,17 +92,11 @@ public class ReportEtaServerActivity extends AppCompatActivity {
         //we use Volley but you may use whatever library you prefer
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest putRequest = new StringRequest(Request.Method.PUT, REPORT_URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        //success
-                    }
+                response -> {
+                    //success
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        //failure to upload
-                    }
+                error -> {
+                    //failure to upload
                 }
         ) {
 

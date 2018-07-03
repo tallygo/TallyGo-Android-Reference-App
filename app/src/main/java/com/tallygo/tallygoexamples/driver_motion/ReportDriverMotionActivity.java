@@ -1,14 +1,9 @@
-package com.tallygo.tallygoexamples.report_server;
-
-//
-//  TallyGoKit
-//
-//  Created by haydenchristensen on 4/19/18
-//  Copyright © 2017 TallyGo. All rights reserved.
-//
+package com.tallygo.tallygoexamples.driver_motion;
 
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -25,14 +20,18 @@ import com.tallygo.tallygoandroid.sdk.navigation.TGNavigationRepository;
 import com.tallygo.tallygoandroid.sdk.route.TGRoute;
 import com.tallygo.tallygoandroid.utils.TGLauncher;
 
+import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.UUID;
 
-public class ReportRouteServerActivity extends AppCompatActivity {
+public class ReportDriverMotionActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,15 +51,15 @@ public class ReportRouteServerActivity extends AppCompatActivity {
             public void onArrivalInfoUpdated(@Nullable TGArrivalInfo tgArrivalInfo) {}
 
             @Override
-            public void onRouteUpdated(TGRoute tgRoute) {
-                if (tgRoute == null) {
-                    return;
-                }
-                reportRoute(tgRoute);
-            }
+            public void onRouteUpdated(@NonNull TGRoute tgRoute) {}
 
             @Override
-            public void onRouteLocationUpdated(Location location) {}
+            public void onRouteLocationUpdated(Location location) {
+                if (location == null) {
+                    return;
+                }
+                locationUpdated(location);
+            }
 
             @Override
             public void onTurnPercentUpdated(double v) {}
@@ -73,31 +72,53 @@ public class ReportRouteServerActivity extends AppCompatActivity {
         };
 
         TGNavigationRepository.getDefaultNavigationAdapter(getApplication(),
-                new TGNavigationRepository.AdapterCallback() {
-                    @Override
-                    public void onReady(@NonNull TGNavigationRepository.Adapter adapter) {
-                        adapter.setNavigationListener(listener);
-                    }
-                });
+                adapter -> adapter.setNavigationListener(listener));
 
         //launch simulated navigation
         TGLauncher.launchSimulatedNavigation(this, 2);
     }
 
-    private static final String REPORT_URL = "http://localhost:3200/drivers/route_segment";
 
-    private TGRoute lastRoute;
+    private static final String URL = "http://192.168.86.69:3200/drivers/motion";
 
-    private void reportRoute(final TGRoute route) {
-        if (route == lastRoute) {
-            //no assurances that you will never receive the same route through this interface
+    private static final int COLLECTION_INTERVAL = 30 * 1000; //millis
+    private Timer collectionTimer;
+
+    private List<Location> collectedLocations = new LinkedList<>();
+
+    private void locationUpdated(@NonNull Location location) {
+        if (collectionTimer == null) {
+            scheduleTimer();
+        }
+        collectedLocations.add(location);
+    }
+
+    private void scheduleTimer() {
+        if (collectionTimer != null) {
+            collectionTimer.cancel();
+        }
+        collectionTimer = new Timer();
+        collectionTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                new Handler(Looper.getMainLooper()).post(() -> {
+                    sendUpdates();
+                });
+            }
+        }, 0, COLLECTION_INTERVAL);
+    }
+
+    private void sendUpdates() {
+        List<Location> listToSend = collectedLocations;
+        collectedLocations = new LinkedList<>();
+
+        if (listToSend == null || listToSend.isEmpty()) {
             return;
         }
-        lastRoute = route;
 
         //we use Volley but you may use whatever library you prefer
         RequestQueue queue = Volley.newRequestQueue(this);
-        StringRequest putRequest = new StringRequest(Request.Method.PUT, REPORT_URL,
+        StringRequest putRequest = new StringRequest(Request.Method.POST, URL,
                 response -> {
                     //success
                 },
@@ -108,13 +129,20 @@ public class ReportRouteServerActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String>  params = new HashMap<>();
+                params.put("id", UUID.randomUUID().toString());
+                params.put("timeInterval", String.valueOf(COLLECTION_INTERVAL / 1000));
+
+                JSONArray locations = new JSONArray();
                 try {
-                    JSONObject json = route.getSegments().get(0).getJson();
-                    for (Iterator<String> it = json.keys(); it.hasNext(); ) {
-                        String key = it.next();
-                        params.put(key, json.get(key).toString());
+                    for (Location location: listToSend) {
+                        JSONArray locationJson = new JSONArray();
+                        locationJson.put((float) location.getLatitude());
+                        locationJson.put((float) location.getLongitude());
+                        locations.put(locationJson);
                     }
                 } catch (JSONException ignored) {}
+                params.put("points", locations.toString());
+
                 return params;
             }
         };
