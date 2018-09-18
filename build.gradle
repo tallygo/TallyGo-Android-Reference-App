@@ -15,8 +15,27 @@ buildscript {
     }
 }
 
+//>>>>>>>>>> Reading configuration from local.properties...
+def localPropertiesFile = 'local.properties'
+Properties rootLocalProperties = new Properties()
+
+if (rootProject.file(localPropertiesFile).canRead()) {
+    rootLocalProperties.load(rootProject.file(localPropertiesFile).newDataInputStream())
+} else {
+    logger.warn("Could not read '" + localPropertiesFile + "'!")
+}
+//<<<<<<<<<<
+
 allprojects {
+    ext {
+        localProperties = rootLocalProperties
+    }
+
     repositories {
+        mavenLocal()
+        maven {
+            url "https://tallygo.bintray.com/TallyGoAndroid"
+        }
         google()
         jcenter()
     }

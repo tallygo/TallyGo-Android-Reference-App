@@ -1,35 +1,28 @@
 package com.tallygo.tallygoexamples;
 
-import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ListView;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
-import timber.log.Timber;
-
-public class MainActivity extends ListActivity {
-
+public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        plantDebugTree();
-        setListAdapter(new MainAdapter(this));
-    }
+        setContentView(R.layout.activity_main);
 
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        ExampleType exampleType = ExampleType.values()[position];
-        startExample(exampleType);
+        final RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        final ExampleTypeAdapter exampleTypeAdapter = new ExampleTypeAdapter(this, this::startExample);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(exampleTypeAdapter);
     }
 
     private void startExample(ExampleType exampleType) {
         Intent intent = new Intent(this, exampleType.getActivityClass());
-        startActivity(intent);
-    }
 
-    private void plantDebugTree() {
-        Timber.plant(new Timber.DebugTree());
+        startActivity(intent);
     }
 }

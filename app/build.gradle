@@ -1,16 +1,34 @@
 apply plugin: 'com.android.application'
 
+//>>>>>>>>>> From local.properties...
+def tallygoAccessToken = "YOUR_SDK_ACCESS_TOKEN"
+if (localProperties.getProperty('tallygo.access.token') != null) {
+    tallygoAccessToken = localProperties.getProperty('tallygo.access.token')
+}
+//<<<<<<<<<<
+
+def versionCodeNum = 2
+def versionNameString = "1.1.0"
+
 android {
-    compileSdkVersion 26
+    archivesBaseName = "TallyGo-Android-Reference-App-" + versionNameString
+
+    compileSdkVersion 27
+
     defaultConfig {
         applicationId "com.tallygo.tallygoexamples"
         minSdkVersion 17
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        targetSdkVersion 27
+        versionCode versionCodeNum
+        versionName versionNameString
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
+        all {
+            resValue("string", "tallygo_access_token", "${tallygoAccessToken}")
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -21,16 +39,8 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
-}
-
-repositories {
-    google()
-    maven {
-        url "https://tallygo.bintray.com/TallyGoAndroid"
-    }
 }
 
 dependencies {
-    implementation 'com.tallygo:tallygo-android:2.0.12'
+    implementation 'com.tallygo:tallygo-android:2.1.0-beta13'
 }

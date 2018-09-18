@@ -12,12 +12,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.tallygo.tallygoandroid.endpoint.navigation.TGArrivalInfo;
-import com.tallygo.tallygoandroid.endpoint.navigation.TGNotificationInfo;
-import com.tallygo.tallygoandroid.endpoint.navigation.TGTurnInfo;
-import com.tallygo.tallygoandroid.sdk.TGNavigationState;
 import com.tallygo.tallygoandroid.sdk.navigation.TGNavigationRepository;
-import com.tallygo.tallygoandroid.sdk.route.TGRoute;
 import com.tallygo.tallygoandroid.utils.TGLauncher;
 
 import org.json.JSONArray;
@@ -39,36 +34,12 @@ public class ReportDriverMotionActivity extends AppCompatActivity {
 
         final TGNavigationRepository.NavigationListener listener = new TGNavigationRepository.NavigationListener() {
             @Override
-            public void onNavigationStateChange(@Nullable TGNavigationState tgNavigationState) {}
-
-            @Override
-            public void onNotificationInfoUpdated(@Nullable TGNotificationInfo tgNotificationInfo) {}
-
-            @Override
-            public void onTurnInfoUpdated(@Nullable TGTurnInfo[] tgTurnInfos) {}
-
-            @Override
-            public void onArrivalInfoUpdated(@Nullable TGArrivalInfo tgArrivalInfo) {}
-
-            @Override
-            public void onRouteUpdated(@NonNull TGRoute tgRoute) {}
-
-            @Override
             public void onRouteLocationUpdated(Location location) {
                 if (location == null) {
                     return;
                 }
                 locationUpdated(location);
             }
-
-            @Override
-            public void onTurnPercentUpdated(double v) {}
-
-            @Override
-            public void onTripPercentUpdated(double v) {}
-
-            @Override
-            public void onTurnPassed() {}
         };
 
         TGNavigationRepository.getDefaultNavigationAdapter(getApplication(),

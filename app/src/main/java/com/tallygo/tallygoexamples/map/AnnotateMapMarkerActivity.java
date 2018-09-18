@@ -1,4 +1,4 @@
-package com.tallygo.tallygoexamples.annotate_map;
+package com.tallygo.tallygoexamples.map;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

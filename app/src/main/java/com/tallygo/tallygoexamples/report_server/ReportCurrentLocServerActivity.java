@@ -20,13 +20,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.mapbox.mapboxsdk.geometry.LatLng;
-import com.tallygo.tallygoandroid.endpoint.navigation.TGArrivalInfo;
-import com.tallygo.tallygoandroid.endpoint.navigation.TGNotificationInfo;
-import com.tallygo.tallygoandroid.endpoint.navigation.TGTurnInfo;
 import com.tallygo.tallygoandroid.sdk.TGMapUtils;
-import com.tallygo.tallygoandroid.sdk.TGNavigationState;
 import com.tallygo.tallygoandroid.sdk.navigation.TGNavigationRepository;
-import com.tallygo.tallygoandroid.sdk.route.TGRoute;
 import com.tallygo.tallygoandroid.utils.TGLauncher;
 import com.tallygo.tallygoandroid.utils.TGUtils;
 
@@ -41,33 +36,9 @@ public class ReportCurrentLocServerActivity extends AppCompatActivity {
 
         final TGNavigationRepository.NavigationListener listener = new TGNavigationRepository.NavigationListener() {
             @Override
-            public void onNavigationStateChange(@Nullable TGNavigationState tgNavigationState) {}
-
-            @Override
-            public void onNotificationInfoUpdated(@Nullable TGNotificationInfo tgNotificationInfo) {}
-
-            @Override
-            public void onTurnInfoUpdated(@Nullable TGTurnInfo[] tgTurnInfos) {}
-
-            @Override
-            public void onArrivalInfoUpdated(@Nullable TGArrivalInfo tgArrivalInfo) {}
-
-            @Override
-            public void onRouteUpdated(TGRoute tgRoute) {}
-
-            @Override
             public void onRouteLocationUpdated(Location location) {
                 reportLocation(location);
             }
-
-            @Override
-            public void onTurnPercentUpdated(double v) {}
-
-            @Override
-            public void onTripPercentUpdated(double v) {}
-
-            @Override
-            public void onTurnPassed() {}
         };
 
         TGNavigationRepository.getDefaultNavigationAdapter(getApplication(),
@@ -80,6 +51,7 @@ public class ReportCurrentLocServerActivity extends AppCompatActivity {
 
         //launch simulated navigation
         TGLauncher.launchSimulatedNavigation(this, 2);
+        finish();
     }
 
 

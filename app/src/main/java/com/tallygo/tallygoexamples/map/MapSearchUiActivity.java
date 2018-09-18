@@ -1,25 +1,22 @@
-package com.tallygo.tallygoexamples.search_ui;
+package com.tallygo.tallygoexamples.map;
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.geometry.LatLngBounds;
 import com.tallygo.tallygoandroid.endpoint.search.TGSearchResult;
+import com.tallygo.tallygoandroid.fragments.MapType;
 import com.tallygo.tallygoandroid.fragments.map.base.TGBaseSupportMapFragment;
 import com.tallygo.tallygoandroid.fragments.map.implementation.TGMapSearchSupportFragment;
-import com.tallygo.tallygoandroid.fragments.map.implementation.model.TGMapContract;
 import com.tallygo.tallygoandroid.fragments.map.implementation.model.TGMapViewModel;
 import com.tallygo.tallygoandroid.interfaces.TGMapHolder;
+import com.tallygo.tallygoandroid.lifecycle.LoadableData;
 import com.tallygo.tallygoandroid.sdk.TGMap;
 import com.tallygo.tallygoandroid.sdk.TGMapView;
-import com.tallygo.tallygoandroid.utils.LoadableData;
 import com.tallygo.tallygoandroid.utils.TGLauncher;
 import com.tallygo.tallygoandroid.utils.TGToastHelper;
 import com.tallygo.tallygoandroid.utils.TGUtils;
@@ -39,34 +36,23 @@ import java.util.Map;
  * to implement {@link TGMapHolder}, so here we implement it and delegate the methods to the
  * base map fragment that we create
  */
-public class SearchUiActivity extends AppCompatActivity implements TGMapHolder {
-
-    private TGMapViewModel mapViewModel;
+public class MapSearchUiActivity extends AppCompatActivity implements TGMapHolder {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.base_map_fragment_holder);
 
-        mapViewModel = ViewModelProviders.of(this).get(TGMapViewModel.class);
-        mapViewModel.getDataModel().observe(this, new Observer<TGMapContract.DataModel>() {
-            @Override
-            public void onChanged(@Nullable TGMapContract.DataModel dataModel) {
-                if (dataModel == null) {
-                    return;
-                }
+        final TGMapViewModel mapViewModel = ViewModelProviders.of(this).get(TGMapViewModel.class);
+        mapViewModel.getDataModel().observe(this, dataModel -> {
+            if (dataModel != null) {
                 //here is how we access the results
                 updateSearchMarkers(dataModel.getSearchMarkers());
             }
         });
 
         //we use a button here to activate the functionality
-        findViewById(R.id.fl_base_map_activate).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addSearchUi();
-            }
-        });
+        findViewById(R.id.fl_base_map_activate).setOnClickListener(v -> addSearchUi());
 
         TGLauncher.startBaseSupportMapFragment(this, R.id.fl_base_map_fragment_holder);
     }
@@ -93,11 +79,15 @@ public class SearchUiActivity extends AppCompatActivity implements TGMapHolder {
             TGToastHelper.showShort(this, "Search fragment already shown");
             return;
         }
+
         //your parent fragment/activity must implement TGMapHolder
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.fl_base_map_fragment_holder,
-                TGMapSearchSupportFragment.newInstance(), TGMapSearchSupportFragment.TAG);
-        transaction.commit();
+        final boolean focusSearchOnStart = false;
+        final TGMapSearchSupportFragment fragment = TGMapSearchSupportFragment.newInstance(MapType.MAP, focusSearchOnStart);
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.fl_base_map_fragment_holder, fragment, TGMapSearchSupportFragment.TAG)
+                .commit();
     }
 
     //
@@ -112,6 +102,7 @@ public class SearchUiActivity extends AppCompatActivity implements TGMapHolder {
         if (frag == null) {
             return null;
         }
+
         return frag.getMapView();
     }
 

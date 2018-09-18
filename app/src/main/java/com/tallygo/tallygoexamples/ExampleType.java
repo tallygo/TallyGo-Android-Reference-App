@@ -2,21 +2,25 @@ package com.tallygo.tallygoexamples;
 
 import android.support.v7.app.AppCompatActivity;
 
-import com.tallygo.tallygoexamples.annotate_map.AnnotateMapMarkerActivity;
+import com.tallygo.tallygoexamples.map.AnnotateMapMarkerActivity;
 import com.tallygo.tallygoexamples.display_driver_report.DisplayDriverReportActivity;
 import com.tallygo.tallygoexamples.driver_motion.DisplayDriverMotionActivity;
 import com.tallygo.tallygoexamples.driver_motion.ReportDriverMotionActivity;
-import com.tallygo.tallygoexamples.driving_simulator.DrivingSimulatorActivity;
 import com.tallygo.tallygoexamples.find_api.LatLonFromStreetAddressActivity;
 import com.tallygo.tallygoexamples.find_api.SearchForLocationActivity;
-import com.tallygo.tallygoexamples.get_navigation.GetNavActivity;
-import com.tallygo.tallygoexamples.get_navigation.GetNavPreviewActivity;
-import com.tallygo.tallygoexamples.obtain_route.GetRouteActivity;
-import com.tallygo.tallygoexamples.overview_ui.OverviewUiActivity;
+import com.tallygo.tallygoexamples.navigation.LiveNavigationFromCurrentLocationActivity;
+import com.tallygo.tallygoexamples.navigation.LiveNavigationFromCurrentLocationWithPreviewActivity;
+import com.tallygo.tallygoexamples.navigation.SimulatedNavigationActivity;
+import com.tallygo.tallygoexamples.navigation.SimulatedNavigationFromCurrentLocationActivity;
+import com.tallygo.tallygoexamples.navigation.SimulatedNavigationFromCurrentLocationWithPreviewActivity;
+import com.tallygo.tallygoexamples.navigation.SimulatedNavigationWithPreviewActivity;
+import com.tallygo.tallygoexamples.obtain_route.GetRouteRawDataActivity;
+import com.tallygo.tallygoexamples.map.MapOverviewUiActivity;
 import com.tallygo.tallygoexamples.report_server.ReportCurrentLocServerActivity;
 import com.tallygo.tallygoexamples.report_server.ReportEtaServerActivity;
 import com.tallygo.tallygoexamples.report_server.ReportRouteServerActivity;
-import com.tallygo.tallygoexamples.search_ui.SearchUiActivity;
+import com.tallygo.tallygoexamples.map.MapSearchUiActivity;
+import com.tallygo.tallygoexamples.turn_list_ui.TurnListUiActivity;
 
 //
 //  TallyGoKit
@@ -25,42 +29,55 @@ import com.tallygo.tallygoexamples.search_ui.SearchUiActivity;
 //  Copyright © 2017 TallyGo. All rights reserved.
 //
 public enum ExampleType {
-    DRIVING_SIMULATOR(DrivingSimulatorActivity.class, "Use the driving simulator"),
-    GET_NAV_WITH_PREVIEW(GetNavPreviewActivity.class, "Get Navigation (with Preview)"),
-    GET_NAV_WITHOUT_PREVIEW(GetNavActivity.class, "Get Navigation (without Preview)"),
+    SIMULATED_NAVIGATION_WITHOUT_PREVIEW(SimulatedNavigationActivity.class, "Simulated Navigation", "without preview"),
+    SIMULATED_NAVIGATION_WITH_PREVIEW(SimulatedNavigationWithPreviewActivity.class, "Simulated Navigation", "with preview"),
+    SIMULATED_NAVIGATION_FROM_CURRENT_LOCATION_WITHOUT_PREVIEW(SimulatedNavigationFromCurrentLocationActivity.class, "Simulated Navigation from current location", "without preview"),
+    SIMULATED_NAVIGATION_FROM_CURRENT_LOCATION_WITH_PREVIEW(SimulatedNavigationFromCurrentLocationWithPreviewActivity.class, "Simulated Navigation from current location", "with preview"),
+    LIVE_NAVIGATION_FROM_CURRENT_LOCATION_WITHOUT_PREVIEW(LiveNavigationFromCurrentLocationActivity.class, "Live Navigation from current location", "multiple waypoints - without Preview"),
+    LIVE_NAVIGATION_FROM_CURRENT_LOCATION_WITH_PREVIEW(LiveNavigationFromCurrentLocationWithPreviewActivity.class, "Live Navigation from current location", "multiple waypoints - with Preview"),
 
     ANNOTATE_MAP_MARKER(AnnotateMapMarkerActivity.class, "Display markers on TGMapView"),
-    SEARCH_UI(SearchUiActivity.class, "Search UI"),
-    OVERVIEW_UI(OverviewUiActivity.class, "Overview UI"),
-    TURN_LIST_UI(SearchUiActivity.class, "Turn List UI"),
+    MAP_SEARCH_UI(MapSearchUiActivity.class, "Map Search UI"),
+    MAP_OVERVIEW_UI(MapOverviewUiActivity.class, "Map Overview UI"),
+    TURN_LIST_UI(TurnListUiActivity.class, "Turn List UI"),
 
     LAT_LON_FROM_STREET_ADDRESS(LatLonFromStreetAddressActivity.class, "Get lat/lon from street address"),
     SEARCH_FOR_LOCATION(SearchForLocationActivity.class, "Get detailed location information"),
-    GET_ROUTE(GetRouteActivity.class, "Get turn-by-turn navigation route data"),
+    GET_ROUTE_RAW_DATA(GetRouteRawDataActivity.class, "Turn-by-Turn Navigation", "accessing raw route data"),
 
-    REPORT_CURRENT_LOC_TO_SERVER(ReportCurrentLocServerActivity.class, "Report driver's location to server"),
-    REPORT_ETA_SERVER(ReportEtaServerActivity.class, "Report driver's ETA to server"),
-    REPORT_ROUTE_SERVER(ReportRouteServerActivity.class, "Report driver's route segment to server"),
+    REPORT_CURRENT_LOC_TO_SERVER(ReportCurrentLocServerActivity.class, "Report driver's location", "to any server"),
+    REPORT_ETA_SERVER(ReportEtaServerActivity.class, "Report driver's ETA", "to any server"),
+    REPORT_ROUTE_SERVER(ReportRouteServerActivity.class, "Report driver's route segment", "to any server"),
 
     DISPLAY_DRIVER_REPORT(DisplayDriverReportActivity.class, "Display driver report"),
 
-    REPORT_DRIVER_MOTION(ReportDriverMotionActivity.class, "Report driver motion"),
+    REPORT_DRIVER_MOTION(ReportDriverMotionActivity.class, "Report driver motion", "to any server"),
     DISPLAY_DRIVER_MOTION(DisplayDriverMotionActivity.class, "Display driver motion"),
     ;
 
     private final Class<? extends AppCompatActivity> activityClass;
-    private final String label;
+    private final String title;
+    private final String description;
 
-    ExampleType(Class<? extends AppCompatActivity> activityClass, String label) {
+    ExampleType(Class<? extends AppCompatActivity> activityClass, String title) {
+        this(activityClass, title, null);
+    }
+
+    ExampleType(Class<? extends AppCompatActivity> activityClass, String title, String description) {
         this.activityClass = activityClass;
-        this.label = label;
+        this.title = title;
+        this.description = description;
     }
 
     public Class<? extends AppCompatActivity> getActivityClass() {
         return activityClass;
     }
 
-    public String getLabel() {
-        return label;
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

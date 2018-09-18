@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.tallygo.tallygoandroid.sdk.TGNavigationEndpoint;
 import com.tallygo.tallygoandroid.sdk.TallyGo;
 import com.tallygo.tallygoandroid.sdk.navigation.TGRouteRequest;
@@ -13,9 +12,6 @@ import com.tallygo.tallygoandroid.sdk.route.TGRoute;
 import com.tallygo.tallygoandroid.sdk.route.TGRouteRepository;
 import com.tallygo.tallygoandroid.utils.TGLauncher;
 import com.tallygo.tallygoandroid.utils.TGToastHelper;
-import com.tallygo.tallygoandroid.utils.TGUtils;
-
-import java.util.List;
 
 //
 //  TallyGoKit
@@ -33,7 +29,7 @@ public class TurnListUiActivity extends AppCompatActivity {
     }
 
     private void initTallyGo() {
-        TallyGo.initializeFromMetaData(this, new TallyGo.InitializeCallback() {
+        TallyGo.initializeFromMetaData(new TallyGo.InitializeCallback() {
             @Override
             public void onSuccess() {
                 startTurnList();
@@ -46,10 +42,11 @@ public class TurnListUiActivity extends AppCompatActivity {
     }
 
     private void startTurnList() {
-        List<LatLng> waypoints = TGUtils.simulatedWaypoints(2);
-
         //create the request
-        TGRouteRequest routeRequest = new TGRouteRequest.Builder(waypoints).build();
+        final TGRouteRequest routeRequest = new TGRouteRequest.Builder()
+                .addCoordinate(34.101558d, -118.340944d) //Grauman's Chinese Theatre (origin)
+                .addCoordinate(34.011441d, -118.494932d)//Santa Monica Pier (destination)
+                .build();
 
         TallyGo.getTGNavigation().route(TGRouteRepository.getInstance(this), routeRequest, new TGNavigationEndpoint.TGRouteCallback() {
             @Override
@@ -65,5 +62,4 @@ public class TurnListUiActivity extends AppCompatActivity {
             }
         });
     }
-
 }

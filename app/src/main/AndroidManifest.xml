@@ -3,12 +3,14 @@
     package="com.tallygo.tallygoexamples">
 
     <application
+        android:name=".ExamplesApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,27 +20,29 @@
         </activity>
 
         <!--Example Activities-->
-        <activity android:name=".get_navigation.GetNavActivity"/>
-        <activity android:name=".get_navigation.GetNavPreviewActivity"/>
+        <activity android:name=".navigation.SimulatedNavigationActivity"/>
+        <activity android:name=".navigation.SimulatedNavigationWithPreviewActivity"/>
+        <activity android:name=".navigation.SimulatedNavigationFromCurrentLocationActivity"/>
+        <activity android:name=".navigation.SimulatedNavigationFromCurrentLocationWithPreviewActivity"/>
+        <activity android:name=".navigation.LiveNavigationFromCurrentLocationActivity"/>
+        <activity android:name=".navigation.LiveNavigationFromCurrentLocationWithPreviewActivity"/>
 
-        <activity android:name=".annotate_map.AnnotateMapMarkerActivity"/>
+        <activity android:name=".map.AnnotateMapMarkerActivity"/>
 
         <activity android:name=".display_driver_report.DisplayDriverReportActivity"/>
-
-        <activity android:name=".driving_simulator.DrivingSimulatorActivity"/>
 
         <activity android:name=".find_api.LatLonFromStreetAddressActivity"/>
         <activity android:name=".find_api.SearchForLocationActivity"/>
 
-        <activity android:name=".obtain_route.GetRouteActivity"/>
+        <activity android:name=".obtain_route.GetRouteRawDataActivity"/>
 
-        <activity android:name=".overview_ui.OverviewUiActivity"/>
+        <activity android:name=".map.MapOverviewUiActivity"/>
 
         <activity android:name=".report_server.ReportCurrentLocServerActivity"/>
         <activity android:name=".report_server.ReportEtaServerActivity"/>
         <activity android:name=".report_server.ReportRouteServerActivity"/>
 
-        <activity android:name=".search_ui.SearchUiActivity"/>
+        <activity android:name=".map.MapSearchUiActivity"/>
 
         <activity android:name=".turn_list_ui.TurnListUiActivity"/>
 
