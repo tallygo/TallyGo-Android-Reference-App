@@ -21,6 +21,7 @@ import com.tallygo.tallygoexamples.report_server.ReportEtaServerActivity;
 import com.tallygo.tallygoexamples.report_server.ReportRouteServerActivity;
 import com.tallygo.tallygoexamples.map.MapSearchUiActivity;
 import com.tallygo.tallygoexamples.turn_list_ui.TurnListUiActivity;
+import com.tallygo.tallygoexamples.waypoint_list_ui.WaypointListUiActivity;
 
 //
 //  TallyGoKit
@@ -40,6 +41,7 @@ public enum ExampleType {
     MAP_SEARCH_UI(MapSearchUiActivity.class, "Map Search UI"),
     MAP_OVERVIEW_UI(MapOverviewUiActivity.class, "Map Overview UI"),
     TURN_LIST_UI(TurnListUiActivity.class, "Turn List UI"),
+    WAYPOINT_LIST_UI(WaypointListUiActivity.class, "Waypoint List UI"),
 
     LAT_LON_FROM_STREET_ADDRESS(LatLonFromStreetAddressActivity.class, "Get lat/lon from street address"),
     SEARCH_FOR_LOCATION(SearchForLocationActivity.class, "Get detailed location information"),

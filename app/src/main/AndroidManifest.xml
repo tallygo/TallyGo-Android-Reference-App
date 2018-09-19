@@ -37,14 +37,14 @@
         <activity android:name=".obtain_route.GetRouteRawDataActivity"/>
 
         <activity android:name=".map.MapOverviewUiActivity"/>
+        <activity android:name=".map.MapSearchUiActivity"/>
+
+        <activity android:name=".turn_list_ui.TurnListUiActivity"/>
+        <activity android:name=".waypoint_list_ui.WaypointListUiActivity"/>
 
         <activity android:name=".report_server.ReportCurrentLocServerActivity"/>
         <activity android:name=".report_server.ReportEtaServerActivity"/>
         <activity android:name=".report_server.ReportRouteServerActivity"/>
-
-        <activity android:name=".map.MapSearchUiActivity"/>
-
-        <activity android:name=".turn_list_ui.TurnListUiActivity"/>
 
         <activity android:name=".driver_motion.ReportDriverMotionActivity"/>
         <activity android:name=".driver_motion.DisplayDriverMotionActivity"/>
