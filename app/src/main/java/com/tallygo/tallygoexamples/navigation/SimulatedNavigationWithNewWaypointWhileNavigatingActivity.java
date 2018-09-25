@@ -19,43 +19,34 @@ import com.tallygo.tallygoandroid.utils.TGToastHelper;
 import java.util.List;
 
 public class SimulatedNavigationWithNewWaypointWhileNavigatingActivity extends AppCompatActivity {
-    private TGNavigationRepository.Adapter navAdapter;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         startDrivingSimulator();
 
-        TGNavigationRepository.getDefaultNavigationAdapter(this, this, new TGNavigationRepository.AdapterCallback() {
-            @Override
-            public void onReady(@NonNull TGNavigationRepository.Adapter adapter) {
-                navAdapter = adapter;
-            }
-
-            @Override
-            public void onDisconnected() {
-                navAdapter = null;
-            }
-        });
-
         new Handler(Looper.getMainLooper()).postDelayed(this::addNewWaypoint, 30 * 1000);
         //finish();
     }
 
     private void addNewWaypoint() {
-        if( navAdapter !=null && navAdapter.isNavRunning() ) {
-            final TGRoute currentRoute = navAdapter.getCurrentRoute();
-            final Integer currentRouteSegment = navAdapter.getCurrentSegmentIndex();
-            final List<TGWaypoint> currentWaypoints = currentRoute.getWaypoints();
-            final List<TGWaypoint> newWaypoints = currentWaypoints.subList(currentRouteSegment + 1, currentWaypoints.size());
+        TGNavigationRepository.getDefaultNavigationAdapter(this, this, new TGNavigationRepository.AdapterCallback() {
+            @Override
+            public void onReady(@NonNull TGNavigationRepository.Adapter navAdapter) {
+                if( navAdapter.isNavRunning() ) {
+                    final TGRoute currentRoute = navAdapter.getCurrentRoute();
+                    final Integer currentRouteSegment = navAdapter.getCurrentSegmentIndex();
+                    final List<TGWaypoint> currentWaypoints = currentRoute.getWaypoints();
+                    final List<TGWaypoint> newWaypoints = currentWaypoints.subList(currentRouteSegment + 1, currentWaypoints.size());
 
-            newWaypoints.add(0, new TGWaypoint(navAdapter.getRouteLocation())); //Start from current location
-            newWaypoints.add(1, new TGWaypoint(34.101558d, -118.340944d)); //Grauman's Chinese Theatre (mid waypoint)
+                    newWaypoints.add(0, new TGWaypoint(navAdapter.getRouteLocation())); //Start from current location
+                    newWaypoints.add(1, new TGWaypoint(34.101558d, -118.340944d)); //Grauman's Chinese Theatre (mid waypoint)
 
-            TGToastHelper.showLong(this, "A new delivery order has come in. You are being rerouted to a new destination...");
-            navAdapter.rerouteRequired(navAdapter.getRouteLocation(), currentRoute, newWaypoints, false);
-        }
+                    TGToastHelper.showLong(SimulatedNavigationWithNewWaypointWhileNavigatingActivity.this, "A new delivery order has come in. You are being rerouted to a new destination...");
+                    navAdapter.rerouteRequired(navAdapter.getRouteLocation(), currentRoute, newWaypoints, false);
+                }
+            }
+        });
     }
 
     private void startDrivingSimulator() {

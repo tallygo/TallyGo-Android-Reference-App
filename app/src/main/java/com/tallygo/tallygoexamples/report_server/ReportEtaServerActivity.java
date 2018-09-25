@@ -46,9 +46,6 @@ public class ReportEtaServerActivity extends AppCompatActivity {
             public void onReady(@NonNull TGNavigationRepository.Adapter adapter) {
                 adapter.setNavigationListener(listener);
             }
-
-            @Override
-            public void onDisconnected() { }
         });
 
         //launch simulated navigation
