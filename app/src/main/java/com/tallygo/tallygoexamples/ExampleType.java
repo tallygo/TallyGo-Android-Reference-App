@@ -13,6 +13,7 @@ import com.tallygo.tallygoexamples.navigation.LiveNavigationFromCurrentLocationW
 import com.tallygo.tallygoexamples.navigation.SimulatedNavigationActivity;
 import com.tallygo.tallygoexamples.navigation.SimulatedNavigationFromCurrentLocationActivity;
 import com.tallygo.tallygoexamples.navigation.SimulatedNavigationFromCurrentLocationWithPreviewActivity;
+import com.tallygo.tallygoexamples.navigation.SimulatedNavigationWithNewWaypointWhileNavigatingActivity;
 import com.tallygo.tallygoexamples.navigation.SimulatedNavigationWithPreviewActivity;
 import com.tallygo.tallygoexamples.obtain_route.GetRouteRawDataActivity;
 import com.tallygo.tallygoexamples.map.MapOverviewUiActivity;
@@ -34,6 +35,7 @@ public enum ExampleType {
     SIMULATED_NAVIGATION_WITH_PREVIEW(SimulatedNavigationWithPreviewActivity.class, "Simulated Navigation", "with preview"),
     SIMULATED_NAVIGATION_FROM_CURRENT_LOCATION_WITHOUT_PREVIEW(SimulatedNavigationFromCurrentLocationActivity.class, "Simulated Navigation from current location", "without preview"),
     SIMULATED_NAVIGATION_FROM_CURRENT_LOCATION_WITH_PREVIEW(SimulatedNavigationFromCurrentLocationWithPreviewActivity.class, "Simulated Navigation from current location", "with preview"),
+    SIMULATED_NAVIGATION_WITH_NEW_WAYPOINT_WHILE_NAVIGATING(SimulatedNavigationWithNewWaypointWhileNavigatingActivity.class, "Simulated Navigation", "with a new waypoint added while navigating"),
     LIVE_NAVIGATION_FROM_CURRENT_LOCATION_WITHOUT_PREVIEW(LiveNavigationFromCurrentLocationActivity.class, "Live Navigation from current location", "multiple waypoints - without Preview"),
     LIVE_NAVIGATION_FROM_CURRENT_LOCATION_WITH_PREVIEW(LiveNavigationFromCurrentLocationWithPreviewActivity.class, "Live Navigation from current location", "multiple waypoints - with Preview"),
 

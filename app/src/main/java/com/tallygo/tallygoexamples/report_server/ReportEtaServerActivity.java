@@ -8,6 +8,7 @@ package com.tallygo.tallygoexamples.report_server;
 //
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
@@ -40,8 +41,15 @@ public class ReportEtaServerActivity extends AppCompatActivity {
             }
         };
 
-        TGNavigationRepository.getDefaultNavigationAdapter(getApplication(),
-                adapter -> adapter.setNavigationListener(listener));
+        TGNavigationRepository.getDefaultNavigationAdapter(getApplication(), new TGNavigationRepository.AdapterCallback() {
+            @Override
+            public void onReady(@NonNull TGNavigationRepository.Adapter adapter) {
+                adapter.setNavigationListener(listener);
+            }
+
+            @Override
+            public void onDisconnected() { }
+        });
 
         //launch simulated navigation
         TGLauncher.launchSimulatedNavigation(this, 2);

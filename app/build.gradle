@@ -42,5 +42,5 @@ android {
 }
 
 dependencies {
-    implementation 'com.tallygo:tallygo-android:2.1.0-beta15'
+    implementation 'com.tallygo:tallygo-android:2.1.0-beta25'
 }
