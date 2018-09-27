@@ -12,7 +12,6 @@ import com.tallygo.tallygoandroid.endpoint.navigation.TGWaypoint;
 import com.tallygo.tallygoandroid.sdk.TallyGo;
 import com.tallygo.tallygoandroid.sdk.navigation.TGNavigationRepository;
 import com.tallygo.tallygoandroid.sdk.navigation.TGRouteRequest;
-import com.tallygo.tallygoandroid.sdk.route.TGRoute;
 import com.tallygo.tallygoandroid.utils.TGLauncher;
 import com.tallygo.tallygoandroid.utils.TGToastHelper;
 
@@ -29,27 +28,30 @@ public class SimulatedNavigationWithNewWaypointWhileNavigatingActivity extends A
         // Wait 30 seconds after starting navigation before adding a waypoint.
         // This simulates a server request that might automatically initiate this kind of action based on a realtime event.
         // Instead of a timer, you would use your own custom networking code to initiate this part.
-        new Handler(Looper.getMainLooper()).postDelayed(this::addNewWaypoint, 30 * 1000);
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            final TGWaypoint newWaypoint = new TGWaypoint(34.101558d, -118.340944d); // New Waypoint: Grauman's Chinese Theatre
+
+            addNewWaypoint(newWaypoint);
+        }, 30 * 1000);
 
         //finish();
     }
 
-    private void addNewWaypoint() {
+    private void addNewWaypoint(TGWaypoint newWaypoint) {
         TGNavigationRepository.getDefaultNavigationAdapter(this, this, new TGNavigationRepository.AdapterCallback() {
             @Override
             public void onReady(@NonNull TGNavigationRepository.Adapter navAdapter) {
                 if( navAdapter.isNavRunning() ) {
-                    final TGRoute currentRoute = navAdapter.getCurrentRoute();
-                    final List<TGWaypoint> currentWaypoints = currentRoute.getWaypoints();
+                    final List<TGWaypoint> currentWaypoints = navAdapter.getCurrentRoute().getWaypoints();
                     final List<TGWaypoint> unreachedWaypointsOnCurrentRoute = currentWaypoints.subList(navAdapter.getCurrentSegmentIndex() + 1, currentWaypoints.size());
                     final List<TGWaypoint> newWaypoints = new LinkedList<>();
 
                     newWaypoints.add(new TGWaypoint(navAdapter.getRouteLocation())); //Start from current location
-                    newWaypoints.add(new TGWaypoint(34.101558d, -118.340944d)); //Add new waypoint: Grauman's Chinese Theatre
+                    newWaypoints.add(newWaypoint); //Add new waypoint
                     newWaypoints.addAll(unreachedWaypointsOnCurrentRoute); //Add the unreached waypoints in the current route
 
                     TGToastHelper.showLong(SimulatedNavigationWithNewWaypointWhileNavigatingActivity.this, "A new delivery order has come in. You are being rerouted to a new destination...");
-                    navAdapter.rerouteRequired(navAdapter.getRouteLocation(), currentRoute, newWaypoints, false);
+                    navAdapter.rerouteRequired(navAdapter.getRouteLocation(), navAdapter.getCurrentRoute(), newWaypoints, false);
                 }
             }
         });
