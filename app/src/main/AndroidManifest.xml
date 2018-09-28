@@ -20,12 +20,12 @@
         </activity>
 
         <!--Example Activities-->
-        <activity android:name=".navigation.SimulatedNavigationActivity"/>
+        <activity android:name=".navigation.SimulatedNavigationWithoutPreviewActivity"/>
         <activity android:name=".navigation.SimulatedNavigationWithPreviewActivity"/>
-        <activity android:name=".navigation.SimulatedNavigationFromCurrentLocationActivity"/>
+        <activity android:name=".navigation.SimulatedNavigationFromCurrentLocationWithoutPreviewActivity"/>
         <activity android:name=".navigation.SimulatedNavigationFromCurrentLocationWithPreviewActivity"/>
         <activity android:name=".navigation.SimulatedNavigationWithNewWaypointWhileNavigatingActivity"/>
-        <activity android:name=".navigation.LiveNavigationFromCurrentLocationActivity"/>
+        <activity android:name=".navigation.LiveNavigationFromCurrentLocationWithoutPreviewActivity"/>
         <activity android:name=".navigation.LiveNavigationFromCurrentLocationWithPreviewActivity"/>
 
         <activity android:name=".map.AnnotateMapMarkerActivity"/>

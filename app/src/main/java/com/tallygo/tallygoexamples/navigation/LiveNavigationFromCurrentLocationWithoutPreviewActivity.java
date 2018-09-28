@@ -8,7 +8,7 @@ import com.tallygo.tallygoandroid.sdk.TallyGo;
 import com.tallygo.tallygoandroid.sdk.navigation.TGRouteRequest;
 import com.tallygo.tallygoandroid.utils.TGLauncher;
 
-public class LiveNavigationFromCurrentLocationActivity extends AppCompatActivity {
+public class LiveNavigationFromCurrentLocationWithoutPreviewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
