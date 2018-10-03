@@ -8,6 +8,7 @@ import com.tallygo.tallygoexamples.driver_motion.DisplayDriverMotionActivity;
 import com.tallygo.tallygoexamples.driver_motion.ReportDriverMotionActivity;
 import com.tallygo.tallygoexamples.find_api.LatLonFromStreetAddressActivity;
 import com.tallygo.tallygoexamples.find_api.SearchForLocationActivity;
+import com.tallygo.tallygoexamples.map.PlainMapUiActivity;
 import com.tallygo.tallygoexamples.navigation.LiveNavigationFromCurrentLocationWithoutPreviewActivity;
 import com.tallygo.tallygoexamples.navigation.LiveNavigationFromCurrentLocationWithPreviewActivity;
 import com.tallygo.tallygoexamples.navigation.SimulatedNavigationWithoutPreviewActivity;
@@ -40,6 +41,7 @@ public enum ExampleType {
     LIVE_NAVIGATION_FROM_CURRENT_LOCATION_WITH_PREVIEW(LiveNavigationFromCurrentLocationWithPreviewActivity.class, "Live Navigation from current location", "multiple waypoints - with Preview"),
 
     ANNOTATE_MAP_MARKER(AnnotateMapMarkerActivity.class, "Display markers on TGMapView"),
+    PLAIN_MAP_UI(PlainMapUiActivity.class, "Map UI", "to search for any point of interest or address; and to navigate to that destination"),
     MAP_SEARCH_UI(MapSearchUiActivity.class, "Map Search UI"),
     MAP_OVERVIEW_UI(MapOverviewUiActivity.class, "Map Overview UI"),
     TURN_LIST_UI(TurnListUiActivity.class, "Turn List UI"),

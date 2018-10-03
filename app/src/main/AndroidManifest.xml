@@ -28,8 +28,6 @@
         <activity android:name=".navigation.LiveNavigationFromCurrentLocationWithoutPreviewActivity"/>
         <activity android:name=".navigation.LiveNavigationFromCurrentLocationWithPreviewActivity"/>
 
-        <activity android:name=".map.AnnotateMapMarkerActivity"/>
-
         <activity android:name=".display_driver_report.DisplayDriverReportActivity"/>
 
         <activity android:name=".find_api.LatLonFromStreetAddressActivity"/>
@@ -37,8 +35,10 @@
 
         <activity android:name=".obtain_route.GetRouteRawDataActivity"/>
 
+        <activity android:name=".map.AnnotateMapMarkerActivity"/>
         <activity android:name=".map.MapOverviewUiActivity"/>
         <activity android:name=".map.MapSearchUiActivity"/>
+        <activity android:name=".map.PlainMapUiActivity"/>
 
         <activity android:name=".turn_list_ui.TurnListUiActivity"/>
         <activity android:name=".waypoint_list_ui.WaypointListUiActivity"/>
