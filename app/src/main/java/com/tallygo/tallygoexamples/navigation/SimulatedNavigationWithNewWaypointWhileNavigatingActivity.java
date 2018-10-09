@@ -32,29 +32,17 @@ public class SimulatedNavigationWithNewWaypointWhileNavigatingActivity extends A
             final TGWaypoint newWaypoint = new TGWaypoint(34.101558d, -118.340944d); // New Waypoint: Grauman's Chinese Theatre
 
             addNewWaypoint(newWaypoint);
+            finish();
         }, 30 * 1000);
-
-        //finish();
     }
 
     private void addNewWaypoint(TGWaypoint newWaypoint) {
-        TGNavigationRepository.getDefaultNavigationAdapter(this, this, new TGNavigationRepository.AdapterCallback() {
+        TGNavigationRepository.addWaypointToStartOfActiveRoute(new TGNavigationRepository.RerouteResultListener() {
             @Override
-            public void onReady(@NonNull TGNavigationRepository.Adapter navAdapter) {
-                if( navAdapter.isNavRunning() ) {
-                    final List<TGWaypoint> currentWaypoints = navAdapter.getCurrentRoute().getWaypoints();
-                    final List<TGWaypoint> unreachedWaypointsOnCurrentRoute = currentWaypoints.subList(navAdapter.getCurrentSegmentIndex() + 1, currentWaypoints.size());
-                    final List<TGWaypoint> newWaypoints = new LinkedList<>();
-
-                    newWaypoints.add(new TGWaypoint(navAdapter.getRouteLocation())); //Start from current location
-                    newWaypoints.add(newWaypoint); //Add new waypoint
-                    newWaypoints.addAll(unreachedWaypointsOnCurrentRoute); //Add the unreached waypoints in the current route
-
-                    TGToastHelper.showLong(SimulatedNavigationWithNewWaypointWhileNavigatingActivity.this, "A new delivery order has come in. You are being rerouted to a new destination...");
-                    navAdapter.rerouteRequired(navAdapter.getRouteLocation(), navAdapter.getCurrentRoute(), newWaypoints, false);
-                }
+            public void onSuccess(List<TGWaypoint> waypointsInNewRoute) {
+                TGToastHelper.showLong(SimulatedNavigationWithNewWaypointWhileNavigatingActivity.this, "A new delivery order has come in. You are being rerouted to a new destination...");
             }
-        });
+        }, newWaypoint);
     }
 
     private void startDrivingSimulator() {
