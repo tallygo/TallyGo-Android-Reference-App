@@ -26,8 +26,10 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.UUID;
 
 public class ReportRouteServerActivity extends AppCompatActivity {
+    private final UUID DRIVER_ID = UUID.randomUUID();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,10 +38,9 @@ public class ReportRouteServerActivity extends AppCompatActivity {
         final TGNavigationRepository.NavigationListener listener = new TGNavigationRepository.NavigationListener() {
             @Override
             public void onRouteUpdated(TGRoute tgRoute) {
-                if (tgRoute == null) {
-                    return;
+                if (tgRoute != null) {
+                    reportRoute(tgRoute);
                 }
-                reportRoute(tgRoute);
             }
         };
 
@@ -88,6 +89,14 @@ public class ReportRouteServerActivity extends AppCompatActivity {
                     }
                 } catch (JSONException ignored) {}
                 return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() {
+                final Map<String, String> headers = new HashMap<>();
+
+                headers.put("X-Temporary-ID", DRIVER_ID.toString());
+                return headers;
             }
         };
         queue.add(putRequest);

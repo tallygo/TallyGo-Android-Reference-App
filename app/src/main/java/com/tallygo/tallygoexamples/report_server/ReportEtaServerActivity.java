@@ -24,8 +24,10 @@ import com.tallygo.tallygoandroid.utils.TGUtils;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class ReportEtaServerActivity extends AppCompatActivity {
+    private final UUID DRIVER_ID = UUID.randomUUID();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,10 +36,9 @@ public class ReportEtaServerActivity extends AppCompatActivity {
         final TGNavigationRepository.NavigationListener listener = new TGNavigationRepository.NavigationListener() {
             @Override
             public void onArrivalInfoUpdated(@Nullable TGArrivalInfo tgArrivalInfo) {
-                if (tgArrivalInfo == null) {
-                    return;
+                if (tgArrivalInfo != null) {
+                    reportEta(tgArrivalInfo.getArrivalDate());
                 }
-                reportEta(tgArrivalInfo.getArrivalDate());
             }
         };
 
@@ -75,7 +76,6 @@ public class ReportEtaServerActivity extends AppCompatActivity {
                     //failure to upload
                 }
         ) {
-
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String>  params = new HashMap<>();
@@ -83,6 +83,13 @@ public class ReportEtaServerActivity extends AppCompatActivity {
                 return params;
             }
 
+            @Override
+            public Map<String, String> getHeaders() {
+                final Map<String, String> headers = new HashMap<>();
+
+                headers.put("X-Temporary-ID", DRIVER_ID.toString());
+                return headers;
+            }
         };
         queue.add(putRequest);
     }

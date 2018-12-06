@@ -12,7 +12,7 @@ import com.tallygo.tallygoandroid.endpoint.search.TGSearchResult;
 import com.tallygo.tallygoandroid.fragments.MapType;
 import com.tallygo.tallygoandroid.fragments.map.base.TGBaseSupportMapFragment;
 import com.tallygo.tallygoandroid.fragments.map.implementation.TGMapSearchSupportFragment;
-import com.tallygo.tallygoandroid.fragments.map.implementation.model.TGMapViewModel;
+import com.tallygo.tallygoandroid.fragments.map.implementation.model.MapViewModel;
 import com.tallygo.tallygoandroid.interfaces.TGMapHolder;
 import com.tallygo.tallygoandroid.lifecycle.LoadableData;
 import com.tallygo.tallygoandroid.sdk.TGMap;
@@ -43,11 +43,11 @@ public class MapSearchUiActivity extends AppCompatActivity implements TGMapHolde
         super.onCreate(savedInstanceState);
         setContentView(R.layout.base_map_fragment_holder);
 
-        final TGMapViewModel mapViewModel = ViewModelProviders.of(this).get(TGMapViewModel.class);
-        mapViewModel.getDataModel().observe(this, dataModel -> {
-            if (dataModel != null) {
+        final MapViewModel mapViewModel = ViewModelProviders.of(this).get(MapViewModel.class);
+        mapViewModel.getSearchMarkers().observe(this, searchMarkers -> {
+            if (searchMarkers != null) {
                 //here is how we access the results
-                updateSearchMarkers(dataModel.getSearchMarkers());
+                updateSearchMarkers(searchMarkers);
             }
         });
 

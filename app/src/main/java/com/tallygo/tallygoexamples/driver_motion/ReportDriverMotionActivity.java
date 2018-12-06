@@ -27,6 +27,7 @@ import java.util.TimerTask;
 import java.util.UUID;
 
 public class ReportDriverMotionActivity extends AppCompatActivity {
+    private final UUID DRIVER_ID = UUID.randomUUID();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,10 +36,9 @@ public class ReportDriverMotionActivity extends AppCompatActivity {
         final TGNavigationRepository.NavigationListener listener = new TGNavigationRepository.NavigationListener() {
             @Override
             public void onRouteLocationUpdated(Location location) {
-                if (location == null) {
-                    return;
+                if (location != null) {
+                    locationUpdated(location);
                 }
-                locationUpdated(location);
             }
         };
 
@@ -119,6 +119,14 @@ public class ReportDriverMotionActivity extends AppCompatActivity {
                 params.put("points", locations.toString());
 
                 return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() {
+                final Map<String, String> headers = new HashMap<>();
+
+                headers.put("X-Temporary-ID", DRIVER_ID.toString());
+                return headers;
             }
         };
         queue.add(putRequest);

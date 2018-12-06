@@ -7,18 +7,18 @@ if (localProperties.getProperty('tallygo.access.token') != null) {
 }
 //<<<<<<<<<<
 
-def versionCodeNum = 2
-def versionNameString = "1.1.0"
+def versionCodeNum = 3
+def versionNameString = "1.1.1"
 
 android {
     archivesBaseName = "TallyGo-Android-Reference-App-" + versionNameString
 
-    compileSdkVersion 27
+    compileSdkVersion 28
 
     defaultConfig {
         applicationId "com.tallygo.tallygoexamples"
-        minSdkVersion 17
-        targetSdkVersion 27
+        minSdkVersion 19
+        targetSdkVersion 28
         versionCode versionCodeNum
         versionName versionNameString
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -42,5 +42,5 @@ android {
 }
 
 dependencies {
-    implementation 'com.tallygo:tallygo-android:2.1.0'
+    implementation 'com.tallygo:tallygo-android:2.2.0'
 }

@@ -27,8 +27,10 @@ import com.tallygo.tallygoandroid.utils.TGUtils;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class ReportCurrentLocServerActivity extends AppCompatActivity {
+    private final UUID DRIVER_ID = UUID.randomUUID();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -81,20 +83,13 @@ public class ReportCurrentLocServerActivity extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(this);
 
         StringRequest putRequest = new StringRequest(Request.Method.PUT, REPORT_URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        //success
-                    }
+                response -> {
+                    //success
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        //failure to upload
-                    }
+                error -> {
+                    //failure to upload
                 }
         ) {
-
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String>  params = new HashMap<>();
@@ -103,6 +98,13 @@ public class ReportCurrentLocServerActivity extends AppCompatActivity {
                 return params;
             }
 
+            @Override
+            public Map<String, String> getHeaders() {
+                final Map<String, String> headers = new HashMap<>();
+
+                headers.put("X-Temporary-ID", DRIVER_ID.toString());
+                return headers;
+            }
         };
 
         queue.add(putRequest);
