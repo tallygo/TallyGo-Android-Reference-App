@@ -66,7 +66,7 @@ public class SearchForLocationActivity extends AppCompatActivity {
         LatLng centerScreen = tgMap.getScreenCenterLatLng();
         LatLngBounds screenBounds = tgMap.getScreenBounds(); // Get bounds from map
         TGSearchRequest request = new TGSearchRequest("sushi", centerScreen)
-                .setSearchBounds(screenBounds, centerScreen);
+                .setSearchBounds(screenBounds);
 
         TGSearchEndpoint.TGSearchCallback callback = new TGSearchEndpoint.TGSearchCallback() {
             @Override
